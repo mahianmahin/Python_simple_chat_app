@@ -16,21 +16,37 @@ client.send(f'[+] Connection established with {HOST} on port {PORT}\n'.encode('u
 print(f'[+] Connected to {address[0]} on port {PORT}')
 
 def send():
-    message = input("Me: ")
-    client.send(message.encode('utf-8'))
+    msg = input(">>> ")
+    if msg == "OFF":
+        client.send(msg.encode('utf-8'))
+        client.close()
+    else:
+        client.send(msg.encode('utf-8'))
 
 def recieve():
-    message = client.recv(1024).decode('utf-8')
-    print(f'Client: {message}')
+    msg = client.recv(1024).decode('utf-8')
+    if msg == "OFF":
+        client.close()
+    else:
+        print(msg)
 
-# send = threading.Thread(target=send)
-# recieve = threading.Thread(target=recieve)
 
 while True:
-    send()
-    recieve()
-    # send.start()
-    # recieve.start()
+    send_thread = threading.Thread(target=send)
+    send_thread.start()
+    
+    recieve_thread = threading.Thread(target=recieve)
+    recieve_thread.start()
+
+
+
+# while True:
+# recieve = threading.Thread(target=recieve)
+# send = threading.Thread(target=send)
+# send.start()
+# recieve.start()
+    # recieve()
+    # send()
 
 
 

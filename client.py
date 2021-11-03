@@ -6,24 +6,43 @@ PORT = 4545
 
 print("[+] Waiting to connect to the server...")
 
+
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))
 
-print(client.recv(1024).decode('utf-8'))
 
 def recieve():
-    message = client.recv(1024).decode('utf-8')
-    print(f'Server: {message}')
+    msg = client.recv(1024).decode('utf-8')
+    if msg == "OFF":
+        client.close()
+    else:
+        print(msg)
 
 def send():
-    message = input("Me: ")
-    client.send(message.encode('utf-8'))
+    msg = input(">>> ")
+    if msg == "OFF":
+        client.send(msg.encode('utf-8'))
+        client.close()
+    else:
+        client.send(msg.encode('utf-8'))
 
-# send = threading.Thread(target=send)
-# recieve = threading.Thread(target=recieve)
 
 while True:
-    recieve()
-    send()
-    # send.start()
-    # recieve.start()
+    recieve_thread = threading.Thread(target=recieve)
+    recieve_thread.start()
+    
+    send_thread = threading.Thread(target=send)
+    send_thread.start()
+
+
+
+
+
+
+# while True:
+# recieve = threading.Thread(target=recieve)
+# send = threading.Thread(target=send)
+#     # recieve()
+#     # send()
+# recieve.start()
+# send.start()
