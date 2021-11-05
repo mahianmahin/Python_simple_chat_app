@@ -2,8 +2,11 @@ import socket
 import threading
 
 nickname = input("Nickname: ")
+ip = input("Server Ip address >>> ")
 
-SERVER = '192.168.56.1'
+# SERVER = '192.168.56.1'
+SERVER = str(ip)
+# SERVER = '192.168.56.1'
 PORT = 4545
 
 print("[+] Waiting to connect to the server...")

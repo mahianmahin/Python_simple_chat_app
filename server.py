@@ -3,14 +3,15 @@ import threading
 
 nickname = input("Nickname: ")
 
-HOST = socket.gethostbyname(socket.gethostname())
+# HOST = socket.gethostbyname(socket.gethostname())
+HOST = '192.168.0.102'
 PORT = 4545
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 
 server.listen()
-print(f'[+] Server is listening on {PORT}...')
+print(f'[+] Server is listening with {HOST} on {PORT}...')
 
 client, address = server.accept()
 client.send(f'[+] Connection established with {HOST} on port {PORT}\n'.encode('utf-8'))
