@@ -5,6 +5,7 @@ nickname = input("Nickname: ")
 
 # HOST = socket.gethostbyname(socket.gethostname())
 HOST = '192.168.0.102'
+# HOST = '127.0.0.1'
 PORT = 4545
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
